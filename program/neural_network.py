@@ -4,7 +4,7 @@ from torch import nn
 from torch.utils.data import DataLoader
 import torchvision
 from torchvision import datasets, transforms
-from zmq import device
+from tools.show import show_model
 
 
 # 简单的神经网路
@@ -66,18 +66,18 @@ def load_data(root='../data', batch_size=64):
 def main():
     device = "cuda"
     model = NeuralNetwork().to(device)
+    show_model(model)
+    # learning_rate = 1e-3
+    # batch_size = 64
+    # epochs = 10
 
-    learning_rate = 1e-3
-    batch_size = 64
-    epochs = 10
+    # train_data, test_data = load_data(batch_size=batch_size)
 
-    train_data, test_data = load_data(batch_size=batch_size)
-
-    for i in range(epochs):
-        for X, y in train_data:
-            X, y = X.to(device), y.to(device)
-            loss = model.train(X, y, wd=0.2)
-        print(f"Epoch {i + 1}/{epochs} Loss: {loss}")
+    # for i in range(epochs):
+    #     for X, y in train_data:
+    #         X, y = X.to(device), y.to(device)
+    #         loss = model.train(X, y, wd=0.2)
+        
 
 
 if __name__ == '__main__':
